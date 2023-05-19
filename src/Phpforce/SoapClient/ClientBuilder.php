@@ -51,12 +51,12 @@ class ClientBuilder
      *
      * @return Client
      */
-    public function build()
+    public function build($soapNamespace = '')
     {
         $soapClientFactory = new SoapClientFactory();
         $soapClient = $soapClientFactory->factory($this->wsdl, $this->soapOptions);
 
-        $client = new Client($soapClient, $this->username, $this->password, $this->token);
+        $client = new Client($soapClient, $this->username, $this->password, $this->token, $soapNamespace);
 
         if ($this->log) {
             $logPlugin = new LogPlugin($this->log);
