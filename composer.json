@@ -1,5 +1,5 @@
 {
-    "name": "phpforce/soap-salesforce-client",
+    "name": "tuannguyen/soap-salesforce-client",
     "type": "library",
     "description": "A PHP client for the Salesforce SOAP API",
     "keywords": [ "salesforce", "crm", "soap", "force.com", "web services" ],
