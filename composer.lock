@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "573f9069c52deba0cb9bf7f4cde8c186",
+    "content-hash": "85438f5befa1c17c51675f3a02aa2a5a",
     "packages": [
         {
             "name": "phpforce/common",
