@@ -23,6 +23,13 @@
         "doctrine/common": "For caching SOAP responses",
         "monolog/monolog": "For logging SOAP transactions"
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SoapClient\\SoapClientServiceProvider"
+            ]
+        }
+    },
     "autoload": {
         "psr-0": {
             "Phpforce\\SoapClient": "src"
