@@ -38,7 +38,7 @@ This library is available on [Packagist](http://packagist.org/packages/phpforce/
 The recommended way to install this library is through [Composer](http://getcomposer.org):
 
 ```bash
-$ php composer.phar require phpforce/soap-client dev-master
+$ composer require tuannguyen/soap-salesforce-client
 ```
 
 Usage
