@@ -18,7 +18,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
      *
      * @var string
      */
-    const SOAP_NAMESPACE = 'urn:enterprise.soap.sforce.com';
+    static $SOAP_NAMESPACE = 'urn:enterprise.soap.sforce.com';
 
     /**
      * SOAP session header
@@ -70,13 +70,18 @@ class Client extends AbstractHasDispatcher implements ClientInterface
      * @param string     $username   Salesforce username
      * @param string     $password   Salesforce password
      * @param string     $token      Salesforce security token
+     * @param string     $soapNamespace SOAP namespace
      */
-    public function __construct(SoapClient $soapClient, $username, $password, $token)
+    public function __construct(SoapClient $soapClient, $username, $password, $token, $soapNamespace = '')
     {
         $this->soapClient = $soapClient;
         $this->username = $username;
         $this->password = $password;
         $this->token = $token;
+
+        if (!empty($soapNamespace)) {
+            self::$SOAP_NAMESPACE = $soapNamespace;
+        }
     }
 
     /**
@@ -277,7 +282,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
                 $this->createSObject($mergeRequest->masterRecord, $type),
                 SOAP_ENC_OBJECT,
                 $type,
-                self::SOAP_NAMESPACE
+                self::$SOAP_NAMESPACE
             );
         }
 
@@ -472,7 +477,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
                 $sObject->fieldsToNull = $fieldsToNullVar;
             }
 
-            $soapVar = new \SoapVar($sObject, SOAP_ENC_OBJECT, $type, self::SOAP_NAMESPACE);
+            $soapVar = new \SoapVar($sObject, SOAP_ENC_OBJECT, $type, self::$SOAP_NAMESPACE);
             $soapVars[] = $soapVar;
         }
 
@@ -598,7 +603,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     {
         $soapHeaderObjects = array();
         foreach ($headers as $key => $value) {
-            $soapHeaderObjects[] = new \SoapHeader(self::SOAP_NAMESPACE, $key, $value);
+            $soapHeaderObjects[] = new \SoapHeader(self::$SOAP_NAMESPACE, $key, $value);
         }
 
         $this->soapClient->__setSoapHeaders($soapHeaderObjects);
@@ -622,7 +627,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     protected function setSessionId($sessionId)
     {
         $this->sessionHeader = new \SoapHeader(
-            self::SOAP_NAMESPACE,
+            self::$SOAP_NAMESPACE,
             'SessionHeader',
             array(
                 'sessionId' => $sessionId
